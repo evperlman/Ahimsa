@@ -3,9 +3,7 @@ const app = express();
 const path = require('path');
 require('dotenv').config()
 
-
-
-//routers:
+//routers
 //apiRouter is connected to the SQL database. Performs operations for bank transactions on the database.
  const dbRouter = require('./routes/db.js');
 //plaidRouter connects to the Plaid API and verifies the user's bank information and allows us access to make API requests for bank transactions
@@ -13,14 +11,13 @@ require('dotenv').config()
 //bcryptRouter encrypts, stores and checks passwords connected to a separate SQL table on the database. 
 const bcryptRouter = require('./routes/bcrypt.js');
 
-//body parsers
+// body parsers
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-
-//route handlers:
+// route handlers
 app.use('/database', dbRouter);
-app.use('/test', plaidRouter);
+app.use('/test', plaidRouter); // Name convention for this route might be /auth
 app.use('/bcrypt', bcryptRouter);
 
 

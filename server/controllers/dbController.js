@@ -1,10 +1,14 @@
 const { Client } = require('pg');
-const database = new Client('');
+const database = new Client('postgres://cjcfvoek:7uijjLGHc90B-ztkZPf4p3xdYgjHBlvO@suleiman.db.elephantsql.com:5432/cjcfvoek');
 database.connect()
 
 const dbController = {};
 
-//Selects all rows from the transactions table.
+//we would want to change this for a specific user_id
+/**
+ * @desc    Selects all rows from the transactions table.
+ * @route   GET /userinfo
+ */
 dbController.getBankTransactions = (request, response, next) => {
   const queryText = 'SELECT * FROM user_transactions';
   database.query(queryText, (err, res) => {
@@ -17,13 +21,15 @@ dbController.getBankTransactions = (request, response, next) => {
   });
 };
 
+/**
+ * 
+ */
 dbController.getBankAccounts = (request, response, next) => {
   const queryText = 'SELECT * FROM account_information;' 
   database.query(queryText, (err, res) => {
     if(err){
       return next(err); 
     } else {
-      console.log(res.rows)
       response.locals.accounts = res.rows; 
       return next(); 
     }
@@ -45,11 +51,17 @@ dbController.addBankInfo = (request, response, next) => {
 };
 
 // Adds all transactions from the Plaid API in accordance with the predefined schema for what a transaction should look like 
+/**
+ * @route     POST /post_data
+ * @reqbody   { }
+ */
 dbController.addBankTransactions = (request, response, next) => {
   const queryValues = request.body[0];
   let queryText = 'INSERT INTO user_transactions (account_id, transaction_id, merchant_name, amount, account_type, date_of_transaction, category) VALUES'
   // this regular expression replace iterative loop replaces all single apostrophe's "'" with two apostrophe's "''" so SQL can read the requests. In our dummy data this only applies to "McDonald's"
   let reg = /'/
+
+  //create a big query block
   for (let i = 0; i < queryValues.length; i++){
     if (queryValues[i].merchant_name !== null){
       queryValues[i].merchant_name = queryValues[i].merchant_name.replace(reg,"''");
@@ -59,6 +71,8 @@ dbController.addBankTransactions = (request, response, next) => {
     } else {
     queryText += ` ('${queryValues[i].account_id}', '${queryValues[i].transaction_id}', '${queryValues[i].merchant_name}', ${queryValues[i].amount}, '${queryValues[i].account_type}', '${queryValues[i].date_of_transaction}', '${queryValues[i].category}'),`
   }};
+
+  //make query with giant query block
   database.query(queryText, (err, res) => {
     if (err) {
       return next(err)
@@ -68,9 +82,10 @@ dbController.addBankTransactions = (request, response, next) => {
   });
 };
 
+
 dbController.addAccounts = (request, response, next) => {
   const queryValues = request.body[1];
-  console.log(queryValues) 
+  
   let queryText = 'INSERT INTO account_information (account_id, account_subtype, account_name, account_balance) VALUES'
 
   queryValues.forEach((account) => {
@@ -78,7 +93,7 @@ dbController.addAccounts = (request, response, next) => {
   })
 
   queryText = queryText.slice(0,queryText.length-1) + ';';
-  console.log('queryText: ', queryText); 
+  
   
   database.query(queryText, (err, res) => {
     if(err){
