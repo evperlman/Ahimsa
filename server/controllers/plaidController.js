@@ -63,6 +63,7 @@ plaidController.getAccessToken = (request, response, next) => {
   // Save the access_token and item_id to a persistant database.
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
+      
       JSON.stringify(tokenResponse, null, 2);
       response.locals.responseToken = {
         access_token: ACCESS_TOKEN,
@@ -77,6 +78,14 @@ plaidController.getAccessToken = (request, response, next) => {
  * @desc    Fetching transaction data
  * @route   GET /get_transactions
  */
+
+//Use the date arguments in getTransactions to only fetch transactions between
+//last login and now, add all NEW transactions in database
+//add login_date to item table, update that date on login
+//so we only ping database for latest data, if first login, search back 30 days
+
+//whenever we get account list, query for each account returned, if found, update balance
+//if not found, create new
 plaidController.getTransactions = (request, response, next) => {
   client.getTransactions(ACCESS_TOKEN,'2020-12-01','2020-12-25')
   .then(data => {
