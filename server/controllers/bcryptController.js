@@ -1,6 +1,8 @@
 const { Client } = require('pg');
-const database = new Client('');
+const database = new Client('postgres://cjcfvoek:7uijjLGHc90B-ztkZPf4p3xdYgjHBlvO@suleiman.db.elephantsql.com:5432/cjcfvoek');
 database.connect()
+
+
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;

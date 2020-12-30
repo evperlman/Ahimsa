@@ -1,21 +1,27 @@
 const plaidController = {};
 
 
-//plaid vars
+// Plaid configuration
 const plaid = require('plaid'); 
 const { request } = require('http');
 const client = new plaid.Client({
-  clientID: '',
-  secret: '',
+  clientID: '5fdd3b4bf9c7ee0011828972',
+  secret: '7583a626bced850854533c7366c046',
   env: plaid.environments.sandbox, 
   options: {
     version: '2020-09-14',
   },
 });
+
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store.
 let ACCESS_TOKEN = '';
 
+
+/**
+ * @desc      Lets users link their accounts to Plaid
+ * @route     POST /get_link_token
+ */
 plaidController.getLinkToken = (request, response, next) => {
 // plaid post request - will create the route / controllers later. 
     let linkToken;
@@ -38,15 +44,23 @@ plaidController.getLinkToken = (request, response, next) => {
     });
   };
 
-  plaidController.getAccessToken = (request, response, next) => {
+/**
+ * @desc    Begin token exchange flow (public token for access token)
+ *          Access token allows us to make authenticated calls to Plaid API.
+ * @route   POST /get_access_token
+ */
+plaidController.getAccessToken = (request, response, next) => {
+
     PUBLIC_TOKEN = request.body.public_token;
     console.log(PUBLIC_TOKEN, 'pub toke')
+  // Exchange client-side public_token for a server access_token.
     client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse){
       if (error != null) {
         const msg = 'Could not exchange public_token!';
         console.log(msg + '\n' + JSON.stringify(error));
         return next(error); 
       }
+  // Save the access_token and item_id to a persistant database.
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
       JSON.stringify(tokenResponse, null, 2);
@@ -59,14 +73,20 @@ plaidController.getLinkToken = (request, response, next) => {
     });
 };
 
+/**
+ * @desc    Fetching transaction data
+ * @route   GET /get_transactions
+ */
 plaidController.getTransactions = (request, response, next) => {
-  client.getTransactions(ACCESS_TOKEN,'2020-10-01','2020-12-25')
+  client.getTransactions(ACCESS_TOKEN,'2020-12-01','2020-12-25')
   .then(data => {
     //add transactions to the database
+    console.log('data >>>', data);
     const transactions = data.transactions; //array of transactions delivered from the database. 
     const simpTransactions = []; 
     const simpAccounts = [];
-    let accountRef = {}; 
+    let accountRef = {};
+    console.log(data)
 
     data.accounts.forEach((account) => {
       let accountsInfo = {};
@@ -94,7 +114,7 @@ plaidController.getTransactions = (request, response, next) => {
       simpTransactions.push(simpTrx);
       
     })
-    console.log(simpAccounts)
+    
     request.body = [simpTransactions, simpAccounts]
     return next();
   }).catch((err) => {
