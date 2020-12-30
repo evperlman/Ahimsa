@@ -63,7 +63,6 @@ export default function SignIn() {
   
 
   const clickHandler = (e) => {
-    console.log(username, password);
     e.preventDefault(); 
     console.log('enters click handler')
     fetch('/bcrypt/check_pw', {
@@ -90,8 +89,6 @@ export default function SignIn() {
       return <Redirect to='/landing'/>; 
     }
   }
-
-
 
   return (
     <Container component="main" maxWidth="xs">

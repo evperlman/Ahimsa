@@ -49,13 +49,15 @@ function Landing () {
   }
 
 
+
+
   return (
     <div className ="landing">
       <div className = "leftSide">
         <NavBar accounts={accounts} onChange={handleChange}/> 
       </div>
       <div className = "rightSide">
-        <AccountInfo accounts={accounts}/>
+        <AccountInfo accounts={accounts} />
         <DisplayData />
         <Transactions /> 
       </div>
