@@ -5,8 +5,8 @@ const plaidController = {};
 const plaid = require('plaid'); 
 const { request } = require('http');
 const client = new plaid.Client({
-  clientID: '',
-  secret: '',
+  clientID: '5fdd3b4bf9c7ee0011828972',
+  secret: '7583a626bced850854533c7366c046',
   env: plaid.environments.sandbox, 
   options: {
     version: '2020-09-14',
@@ -40,7 +40,7 @@ plaidController.getLinkToken = (request, response, next) => {
 
   plaidController.getAccessToken = (request, response, next) => {
     PUBLIC_TOKEN = request.body.public_token;
-    console.log(PUBLIC_TOKEN, 'pub toke')
+    // console.log(PUBLIC_TOKEN, 'pub token')
     client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse){
       if (error != null) {
         const msg = 'Could not exchange public_token!';

@@ -13,14 +13,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link, BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
-import PlaidButton from '../components/PlaidButton.jsx'
 
+
+
+// renders copyright information
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <LinkUI color="inherit" href="#">
-        ASANA
+        AHIMSA
       </LinkUI>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -132,6 +134,10 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+         {/* add in onclick functionality to link to SIGNUP.JSX */}
+          <LinkUI href="/signup" variant="body2"> 
+                {"Don't have an account? Sign Up"}
+          </LinkUI>
             <Button
               type="submit"
               fullWidth
@@ -144,14 +150,8 @@ export default function SignIn() {
             </Button>
           <Grid container>
             <Grid item xs>
-              {/* <LinkUI href="#" variant="body2">  ---> stretch feature 
-                Forgot password?
-              </LinkUI> */}
             </Grid>
             <Grid item>
-              {/* <LinkUI href="#" variant="body2"> ---> stretch feature
-                {"Don't have an account? Sign Up"}
-              </LinkUI> */}
             </Grid>
           </Grid>
         </form>

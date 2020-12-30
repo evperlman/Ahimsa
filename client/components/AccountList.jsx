@@ -5,17 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
-
-
-
-// const AccountList = () => {
-//   return (
-//     <div className = "accountList">
-//       <h3>Current accounts</h3>
-//         <Account />
-//     </div>
-//   )
-// };
+// make accounts conditionally render. currently hard coded. 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,35 +15,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
+// function ListItemLink(props) {
+//   return <ListItem button component="a" {...props} />;
+// }
 
-export default function SimpleList(props) {
+function AccountList(props) {
   const classes = useStyles();
 
-  console.log(props)
+  // const [accounts, addAccount] = useState([]); 
 
+  //useEffect to fetch accountList from Plaid and then update state
+
+  // iterate through fetch request of accounts and popoulate array here. 
   return (
-    
     <div className={classes.root}>
       <List component="nav">
+        {/* render all accounts from state */}
         <ListItem button>
+          {/* {accounts.map((account, i) =>  /> )} */}
           <ListItemText primary="Plaid Gold Standard Checking" />
         </ListItem>
       <Divider />
-        <ListItem button>
-          <ListItemText primary="Plaid Diamond Credit Card" />
-        </ListItem>
-      <Divider />
-        <ListItem button>
-          <ListItemText primary="Plaid Bronze Standard CD" />
-        </ListItem>
-      <Divider />  
-        <ListItemLink>
-          <ListItemText primary="Plaid Diamond Credit Card" />
-        </ListItemLink>
       </List>
     </div>
   );
 }
+
+export default AccountList;

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+// make all left adjusted and conditional upon the NavBar Button Selector. 
+
+
 function AccountInfo (props) {
-
-  console.log(props.accounts[0])
-
-
-
-
   return (
     <div className = "accInfo">
       <h3>Account Information</h3>
