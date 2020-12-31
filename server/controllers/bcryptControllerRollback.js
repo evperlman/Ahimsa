@@ -1,8 +1,6 @@
-// const { Client } = require("pg");
-// const db = new Client(process.env.DB_URL);
-// db.connect();
-
-const db = require("../pool.js");
+const { Client } = require("pg");
+const database = new Client(process.env.DB_URL);
+database.connect();
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -31,7 +29,7 @@ bcryptController.hashPassword = (request, response, next) => {
 bcryptController.createUser = (request, response, next) => {
   const { hash, email, first_name, last_name } = request.body;
   const text = `INSERT INTO users (first_name, last_name, email, hash) VALUES ('${first_name}', '${last_name}','${email}', '${hash}');`;
-  db.query(text, (err, res) => {
+  database.query(text, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -41,7 +39,7 @@ bcryptController.createUser = (request, response, next) => {
   });
 };
 
-//checks password input against the db and returns a boolean
+//checks password input against the database and returns a boolean
 /**
  * @desc    Credential validation: compares hashed pw with input pw.
  * @route   POST /check_pw
@@ -51,7 +49,7 @@ bcryptController.checkPassword = (request, response, next) => {
   const { password, email } = request.body;
   const text = `SELECT * FROM users WHERE email='${email}'`;
   
-  db.query(text, (err, res) => {
+  database.query(text, (err, res) => {
     if (err) next(err);
     else {
       if(!res.rows[0]) return next();

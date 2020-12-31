@@ -1,8 +1,6 @@
-// const { Client } = require("pg");
-// const db = new Client(process.env.DB_URL);
-// db.connect();
-
-const db = require("../pool.js");
+const { Client } = require("pg");
+const database = new Client(process.env.DB_URL);
+database.connect();
 
 const plaidController = {};
 
@@ -72,7 +70,7 @@ plaidController.getAccessToken = (request, response, next) => {
      
       const params = [tokenResponse.item_id, '1', tokenResponse.access_token, '2020-12-01'];
       const text = `INSERT INTO items ( item_id, user_id, access_token, last_login ) VALUES ($1, $2, $3, $4);`
-      db.query(text, params, (err, res) => {
+      database.query(text, params, (err, res) => {
         if (err) next(err)
         else {
           console.log("Inserted Access Token into items table successfully.");
@@ -89,18 +87,18 @@ plaidController.getAccessToken = (request, response, next) => {
  */
 
 //Use the date arguments in getTransactions to only fetch transactions between
-//last login and now, add all NEW transactions in db
+//last login and now, add all NEW transactions in database
 //add login_date to item table, update that date on login
-//so we only ping db for latest data, if first login, search back 30 days
+//so we only ping database for latest data, if first login, search back 30 days
 
 //whenever we get account list, query for each account returned, if found, update balance
 //if not found, create new
 plaidController.getTransactions = (request, response, next) => {
   client.getTransactions(ACCESS_TOKEN,'2020-12-01','2020-12-25')
   .then(data => {
-    //add transactions to the db
+    //add transactions to the database
     console.log('data >>>', data);
-    const transactions = data.transactions; //array of transactions delivered from the db. 
+    const transactions = data.transactions; //array of transactions delivered from the database. 
     const simpTransactions = []; 
     const simpAccounts = [];
     let accountRef = {};
@@ -142,7 +140,7 @@ plaidController.getTransactions = (request, response, next) => {
 };
 
 /**
- * @desc    Update db based on new Plaid transactions.
+ * @desc    Update database based on new Plaid transactions.
  * @route   GET /get_transactions
  */
 plaidController.getTransactionsFromApi = (request, response, next) => {
@@ -151,11 +149,11 @@ plaidController.getTransactionsFromApi = (request, response, next) => {
   response.locals.item_ids = []
   const { user_id } = request.body
   const accounts = []
-  //query db for all items that relate to user_id
+  //query database for all items that relate to user_id
   const text = `SELECT * FROM items WHERE user_id=${user_id} AND NOT last_login='2020-12-25';`;
   // 
 
-  db.query(text, (err, result) => {
+  database.query(text, (err, result) => {
     if (err) {
       return next(err)
     } else {

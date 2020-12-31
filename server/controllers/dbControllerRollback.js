@@ -1,6 +1,6 @@
-// const { Client } = require("pg");
-// const db = new Client(process.env.DB_URL);
-// db.connect();
+const { Client } = require("pg");
+const database = new Client(process.env.DB_URL);
+database.connect();
 
 const db = require("../pool.js");
 
@@ -13,7 +13,7 @@ const dbController = {};
  */
 dbController.getBankTransactions = (request, response, next) => {
   const queryText = "SELECT * FROM user_transactions";
-  db.query(queryText, (err, res) => {
+  database.query(queryText, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -28,7 +28,7 @@ dbController.getBankTransactions = (request, response, next) => {
  */
 dbController.getBankAccounts = (request, response, next) => {
   const queryText = "SELECT * FROM account_information;";
-  db.query(queryText, (err, res) => {
+  database.query(queryText, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -42,7 +42,7 @@ dbController.getBankAccounts = (request, response, next) => {
 dbController.addBankInfo = (request, response, next) => {
   const queryValues = request.body.data;
   const queryText = `INSERT INTO user_transactions ${queryValues};`;
-  db.query(queryText, (err, res) => {
+  database.query(queryText, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -80,7 +80,7 @@ dbController.addBankTransactions = (request, response, next) => {
   }
 
   //make query with giant query block
-  db.query(queryText, (err, res) => {
+  database.query(queryText, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -101,7 +101,7 @@ dbController.addAccounts = (request, response, next) => {
 
   // queryText = queryText.slice(0,queryText.length-1) + ';';
 
-  db.query(queryText, (err, res) => {
+  database.query(queryText, (err, res) => {
     if (err) {
       return next(err);
     } else {
@@ -121,11 +121,11 @@ dbController.updateDatabaseAccounts = (request, response, next) => {
 
   accountQuery = accountQuery.slice(0, accountQuery.length - 1) + ";";
 
-  db.query(accountQuery, (err, result) => {
+  database.query(accountQuery, (err, result) => {
     if (err) {
       console.log("error in updateDatabaseAccounts");
     }
-    console.log("finish update db accounts");
+    console.log("finish update database accounts");
     return next();
   });
 };
@@ -176,46 +176,66 @@ dbController.updateDatabaseTransactions = (request, response, next) => {
 
   // console.log('TRANSACTION.QUERY >>>>>', transactionQuery);
 
-  db.query(transactionQuery, (err, result) => {
-    console.log('RESULT >>>>>>', result);
-    // if (err) {
-    //   console.log('error in updateDatabaseTransactions');
-    // }
-    // console.log("finish updateDatabaseTransactions");
-    // return next();
-    return
-  })
-  .then(result => {
-    return next()
-  })
+  database.query(transactionQuery, (err, result) => {
+    if (err) {
+      console.log('error in updateDatabaseTransactions');
+    }
+    console.log("finish updateDatabaseTransactions");
+    return next();
+  });
 };
 
 //saves accounts and transactions based on first account on res.locals based on user_id
 dbController.getExistingAccounts = (request, response, next) => {
+  const { item_ids } = response.locals;
   const { user_id } = request.body;
 
   const text = `SELECT * FROM accounts WHERE user_id = '${user_id}';`;
-  db.query(text, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
+  // database.query(text, (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //     // return next(err)
+  //   }
+  //   response.locals.servedAccounts = result.rows;
+  //   console.log("SAVED SERVED ACCOUNTS ON LOCALS");
+  //   return next();
+  // })
+
+  database.query(text, (err, result) => {
+    console.log('executed getExistingAccounts')
+    return result
+  })
+  .then((result) => {
+    
     response.locals.servedAccounts = result.rows;
-    console.log("SAVED SERVED ACCOUNTS ON LOCALS");
+    console.log("finish getExistingAccounts");
     return next();
   })
 };
 
 dbController.getInitialTransactions = (request, response, next) => {
-  const text_transactions = `SELECT * FROM transactions WHERE account_id = '${response.locals.servedAccounts[0].account_id}';`;
+  const text_transactions = `SELECT * FROM transactions WHERE account_id = '${response.locals.accounts[0].account_id}';`;
   console.log("TRANSACTIONS QUERY>>>>>", text_transactions);
-  db.query(text_transactions, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
+  // database.query(text_transactions, (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //     // return next(err);
+  //   }
+  //   response.locals.servedTransactions = result.rows;
+  //   console.log("RESPONSE.LOCALS>>>>", response.locals.servedTransactions);
+  //   return next();
+  // });
+
+  database.query(text_transactions, (err, result) => {
+    console.log('executed getInitialTransactions')
+    return result
+  })
+  .then((result) => {
+    
     response.locals.servedTransactions = result.rows;
     console.log("RESPONSE.LOCALS>>>>", response.locals.servedTransactions);
     return next();
-  });
+  })
 };
 
 module.exports = dbController;

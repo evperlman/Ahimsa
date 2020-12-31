@@ -20,13 +20,21 @@ router.post(
   plaidController.getTransactionsFromApi,
   dbController.updateDatabaseAccounts,
   dbController.updateDatabaseTransactions,
-  dbController.getExistingAccounts,
-  dbController.getInitialTransactions,
   (req, res) => {
     console.log('SENDING OUT>>>>', [res.locals.servedTransactions])
     return res.status(200).json([res.locals.servedTransactions, res.locals.servedAccounts]);
   }
 );
+
+router.post("/dbpull",
+dbController.getExistingAccounts,
+dbController.getInitialTransactions,
+(req, res) => {
+  console.log('SENDING OUT>>>>', [res.locals.servedTransactions])
+  return res.status(200).json([res.locals.servedTransactions, res.locals.servedAccounts]);
+}
+)
+
 
 //deprecated route. used during development to test database querying / inserting rows.
 router.post("/userinfo", dbController.addBankInfo, (req, res) => {
