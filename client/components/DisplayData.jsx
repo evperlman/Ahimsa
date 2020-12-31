@@ -1,33 +1,39 @@
-import { BarSeries } from '@devexpress/dx-react-chart';
 import React, { useState, useEffect, useContext } from 'react'; 
 import { Doughnut } from 'react-chartjs-2';
 import myContext from '../contexts/GlobalContext.jsx'
+
 const DisplayData = () => {
 let { transactions, currentAccount } = useContext(myContext);
-// console.log('TRANSACTIONS IN DISPLAYDATA', transactions); 
-// console.log('CURRENT ACCOUNT IN DISPLAYDATA', currentAccount); 
-// let spendData = {}
-let foodTotal = 0;
-let travelTotal = 0;
-let recTotal = 0;
+
+let spendData = {}
+
 for (let i = 0; i < transactions.length; i++){
-  if(transactions[i].category === 'Food and Drink') foodTotal += transactions[i].transaction_amount;
-  if(transactions[i].category === 'Travel') travelTotal += transactions[i].transaction_amount;
-  if(transactions[i].category === 'Recreation') recTotal += transactions[i].transaction_amount;
+
+  console.log('transaction amount: ', transactions[i].transaction_amount)
+
+  if(!spendData[transactions[i].category]){
+    spendData[transactions[i].category] = transactions[i].transaction_amount; 
+  } else {
+    spendData[transactions[i].category] += transactions[i].transaction_amount; 
+  }
 }
+
+  console.log('labels:', Object.keys(spendData));
+  console.log('values:', Object.values(spendData)); 
+
   const data = {
-    labels: ['Food and Drink', 'Travel', 'Recreation'],
+    labels: Object.keys(spendData),
     datasets: [
       {
         label: 'Spend By Category',
-        data: [foodTotal, travelTotal, recTotal],
+        data: Object.values(spendData),
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -47,9 +53,14 @@ for (let i = 0; i < transactions.length; i++){
       <Doughnut 
       data={data}
       responsive={true}
-      options={{ maintainAspectRatio: false }}      
+      options={
+        { maintainAspectRatio: false },
+        {legend: {
+          position: 'right'
+        }}
+      }      
       />
-    </div>  
+    </div> 
   </div>
   )
 };

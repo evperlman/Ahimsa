@@ -7,11 +7,11 @@ import myContext from '../contexts/GlobalContext.jsx';
 
 
 const columns = [
-  { field: 'merchant_name', headerName: 'Transaction', width: 150 },
-  { field: 'category', headerName: 'Category', width: 130 },
-  { field: 'transaction_date', headerName: 'Date', width: 130 },
+  { field: 'merchant_name', headerName: 'Transaction', width: 250 },
+  { field: 'category', headerName: 'Category', width: 250 },
+  { field: 'transaction_date', headerName: 'Date', width: 250 },
   { field: 'transaction_amount', headerName: 'Amount', type: 'number', width: 130 },
-  { field: 'account_name', headerName: 'Account Type', width: 150 }
+  { field: 'account_name', headerName: 'Account Type', width: 250 }
 ];
 
 

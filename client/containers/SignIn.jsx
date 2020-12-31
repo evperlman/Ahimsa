@@ -65,7 +65,6 @@ export default function SignIn() {
 
   const clickHandler = (e) => {
     e.preventDefault(); 
-    console.log('enters click handler')
     fetch('/bcrypt/check_pw', {
       method: 'POST',
       body: JSON.stringify({
@@ -77,11 +76,12 @@ export default function SignIn() {
         'Content-Type': 'application/json'
       }
     }).then(data => data.json()).then(result => {
+
       if (result){
-        console.log(result)
-
-
         //ass user to current user hook
+        
+        console.log('result', result); 
+        
         setUser(result)
 
 
