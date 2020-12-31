@@ -68,7 +68,8 @@ export default function SignIn() {
     fetch('/bcrypt/check_pw', {
       method: 'POST',
       body: JSON.stringify({
-        username: username,
+        //changed body "username" to "email"
+        email: username,
         password: password,
       }),
       headers: {

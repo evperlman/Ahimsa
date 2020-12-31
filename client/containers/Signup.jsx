@@ -8,7 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -52,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -62,30 +61,30 @@ export default function SignUp() {
   const history = useHistory(); 
 
   const clickHandler = (e) => {
-    console.log(firstName,
-      lastName,
+    console.log(first_name,
+      last_name,
       email,
       password)
     e.preventDefault(); 
-    // fetch('/create_new_user', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     password,
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then(data => data.json()).then(result => {
-    //   if (result){
-    //     setUserCreated(true); 
-    //     history.push('landing')
-    //   } else {
-    //     alert('Username already taken. Please update.')
-    //   }
-    // });
+    fetch('/bcrypt/register_user', {
+      method: 'POST',
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        password,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(data => data.json()).then(result => {
+      if (result){
+        setUserCreated(true); 
+        history.push('landing')
+      } else {
+        alert('Username already taken. Please update.')
+      }
+    });
   };
 
   return (
