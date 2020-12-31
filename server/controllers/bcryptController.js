@@ -1,12 +1,6 @@
-// const { Client } = require("pg");
-// const db = new Client(process.env.DB_URL);
-// db.connect();
-
 const db = require("../pool.js");
-
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
 const bcryptController = {};
 
 /**

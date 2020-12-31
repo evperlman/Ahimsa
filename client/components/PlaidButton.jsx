@@ -28,6 +28,7 @@ function PlaidButton() {
         accounts: metadata.accounts,
         institution: metadata.institution,
         link_session_id: metadata.link_session_id,
+        user_id: '1',
       }),
       headers: {
         'Content-Type': 'application/json'

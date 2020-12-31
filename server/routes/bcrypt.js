@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcryptController = require('../controllers/bcryptController.js');
 
-//endpoint creating a user
-//post request to create_pw, hashes the password, then stores in users
+
+//post request to create a user, hashes the password, then stores in users
 router.post('/register_user', bcryptController.hashPassword, bcryptController.createUser, (req, res) => {
   return res.status(200).json(true);
 });

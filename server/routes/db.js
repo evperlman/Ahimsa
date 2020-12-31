@@ -3,42 +3,39 @@ const dbController = require("../controllers/dbController.js");
 const plaidController = require("../controllers/plaidController.js");
 const router = express.Router();
 
-// gets all transactions from the database for a specific user - also invoked when we /get_transactions in the plaid.js file
-router.get("/userinfo/", dbController.getBankTransactions, (req, res) => {
-  return res.status(200).json(res.locals.data);
-});
-
-//Adds transaction information to the database from the Plaid API given user credentials
-//this functionality is included in the "GET" request in 'plaid.js'.
-router.post("/post_data", dbController.addBankTransactions, (req, res) => {
-  return res.status(200).json("success");
-});
-
 //post route runs on login, request body contains user_id
 router.post(
-  "/login",
+  "/updatedatabase",
+  dbController.getItems,
   plaidController.getTransactionsFromApi,
+  // dbController.updateDatabaseItems,
   dbController.updateDatabaseAccounts,
   dbController.updateDatabaseTransactions,
   (req, res) => {
-    console.log('SENDING OUT>>>>', [res.locals.servedTransactions])
-    return res.status(200).json([res.locals.servedTransactions, res.locals.servedAccounts]);
+    return res.status(200).json('database updated');
   }
 );
 
-router.post("/dbpull",
+router.post("/get_items", dbController.getItems, (req, res) => {
+  return res.status(200).json(res.locals.items);
+})
+
+//get accounts based on user_id
+router.post("/getaccounts",
 dbController.getExistingAccounts,
-dbController.getInitialTransactions,
 (req, res) => {
-  console.log('SENDING OUT>>>>', [res.locals.servedTransactions])
-  return res.status(200).json([res.locals.servedTransactions, res.locals.servedAccounts]);
+  return res.status(200).json(res.locals.servedAccounts);
 }
 )
 
+//get transactions based on account_id
+router.get("/gettransactions/:account_id", dbController.getTransactions, (req, res) => {
+  console.log('SENDING OUT>>>>', res.locals.transactions)
+  return res.status(200).json(res.locals.transactions);
+})
 
-//deprecated route. used during development to test database querying / inserting rows.
-router.post("/userinfo", dbController.addBankInfo, (req, res) => {
-  return res.status(200).json("success");
-});
+
+
+
 
 module.exports = router;
