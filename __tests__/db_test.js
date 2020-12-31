@@ -20,13 +20,3 @@ describe("Route integration", () => {
     });
   });
 });
-// describe("testing user endpoints", ()=> {
-//     it("can we get users", ()=> {
-//         const result
-//         fetch('http://localhost:3000/userinfo/')
-//         .then((data) => {
-//             result = data
-//            expect(Array.isArray(data).toBeTruthy)
-//         })
-//     })
-// })

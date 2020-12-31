@@ -1,3 +1,7 @@
+const { Client } = require("pg");
+const database = new Client(process.env.DB_URL);
+database.connect();
+
 const plaidController = {};
 
 
@@ -5,8 +9,8 @@ const plaidController = {};
 const plaid = require('plaid'); 
 const { request } = require('http');
 const client = new plaid.Client({
-  clientID: '5fdd3b4bf9c7ee0011828972',
-  secret: '7583a626bced850854533c7366c046',
+  clientID: process.env.PLAID_CLIENT_ID,
+  secret: process.env.PLAID_SECRET,
   env: plaid.environments.sandbox, 
   options: {
     version: '2020-09-14',
@@ -52,7 +56,6 @@ plaidController.getLinkToken = (request, response, next) => {
 plaidController.getAccessToken = (request, response, next) => {
 
     PUBLIC_TOKEN = request.body.public_token;
-    console.log(PUBLIC_TOKEN, 'pub toke')
   // Exchange client-side public_token for a server access_token.
     client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse){
       if (error != null) {
@@ -60,17 +63,21 @@ plaidController.getAccessToken = (request, response, next) => {
         console.log(msg + '\n' + JSON.stringify(error));
         return next(error); 
       }
-  // Save the access_token and item_id to a persistant database.
+  
+      //delete later
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
-      
-      JSON.stringify(tokenResponse, null, 2);
-      response.locals.responseToken = {
-        access_token: ACCESS_TOKEN,
-        item_id: ITEM_ID,
-        error: false,
-      };
-      return next();
+     
+      const params = [tokenResponse.item_id, '1', tokenResponse.access_token, '2020-12-01'];
+      const text = `INSERT INTO items ( item_id, user_id, access_token, last_login ) VALUES ($1, $2, $3, $4);`
+      database.query(text, params, (err, res) => {
+        if (err) next(err)
+        else {
+          console.log("Inserted Access Token into items table successfully.");
+          return next();
+        }
+      })
+      // return next();
     });
 };
 
@@ -131,5 +138,57 @@ plaidController.getTransactions = (request, response, next) => {
     return next(err)
   });
 };
+
+/**
+ * @desc    Update database based on new Plaid transactions.
+ * @route   GET /get_transactions
+ */
+plaidController.getTransactionsFromApi = (request, response, next) => {
+  response.locals.transactions = []
+  response.locals.accounts = []
+  response.locals.item_ids = []
+  const { user_id } = request.body
+  const accounts = []
+  //query database for all items that relate to user_id
+  const text = `SELECT * FROM items WHERE user_id=${user_id} AND NOT last_login='2020-12-25';`;
+  // 
+
+  database.query(text, (err, result) => {
+    if (err) {
+      return next(err)
+    } else {
+      // console.log(res.rows);
+
+      result.rows.forEach((item)=>{
+        response.locals.item_ids.push(item.item_id)
+
+        //if its the first item in this array
+        client.getTransactions(item.access_token, item.last_login,'2020-12-25')
+        .then((data)=>{
+          response.locals.transactions.push(...data.transactions)
+          response.locals.accounts.push(...data.accounts)
+          
+          return next()
+        })
+
+        //query item for accounts
+        //query item for transactions
+      })
+    }
+  })
+
+
+
+  //loop through items, query each one that has join_date that isnt 2020-12-25
+  // for (let i = 0; i < items.length; i++) {
+  //   const text = `S`
+  //   if (item[i].last_login !== '2020-12-25') {
+  //     //do the query, push the rows into accounts array
+  //   }
+  // }
+
+}
+
+
 
   module.exports = plaidController; 
