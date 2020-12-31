@@ -19,7 +19,7 @@ const NavBar = (props) => {
             </div>
             <div className = "navbar">
               {/* {once we link the accounts the accounts render here.} */}
-              <AccountList accounts={props.accounts} onChange={props.onChange}/>
+              <AccountList />
               <PlaidButton />
             </div>
           </div>      

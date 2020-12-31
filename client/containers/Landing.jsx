@@ -11,21 +11,6 @@ import myContext from '../contexts/GlobalContext.jsx'
 
 function Landing () {
   
-  // const [loggedIn, setLoggedIn] = useState(false); 
-
-  // const test = useContext(myContext);
-  // console.log(test);
-  // test.updateLogin();  
-  // console.log(test); 
-
-  
-
- 
-
-  function handleChange(newValue) {
-    setValue(newValue);
-  }
-
   return (
   <div className ="landing">
       <div className = "leftSide">

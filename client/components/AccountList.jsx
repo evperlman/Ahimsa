@@ -36,7 +36,7 @@ function AccountList(props) {
       listItems.push(
       <div>
         <ListItem key={i}> 
-          <Account account_id={accounts[i].account_id} account_name={accounts[i].account_name}/>
+          <Account account_id={accounts[i].account_id} account_data={accounts[i]}/>
         </ListItem>
           <Divider />
       </div>

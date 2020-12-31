@@ -20,7 +20,7 @@ const App = () => {
       // .then(res => {
       //   
     // PARSE USER OBJECT AND FEED IT TO SET USER
-    setUser({first_name: 'evan', last_name: 'perlman', email: 'eperlman@gmail.com'});
+    setUser({first_name: 'will', last_name: 'perlman', email: 'eperlman@gmail.com'});
       //   });
       // }).catch(err => {
       //   if (err) return err
@@ -30,7 +30,10 @@ const App = () => {
       // .then(res => {
       //   
     // PARS ACCOUNTS ARRAY AND FEED IT TO FEED TO ACCOUNTS LIST
-    setAccounts([{account_name: 'Plaid Checking', account_id: 'enwfn383n48g6'}])
+    setAccounts([
+    {account_name: 'Plaid Checking', account_id: 'enwfn383n48g6', account_subtype: 'Checking',account_balance: 69},
+    {account_name: 'Plaid Banking', account_id: 'naotherone', account_subtype: 'Savings', account_balance: 69}, 
+    {account_name: 'Plaid big tester', account_id: 'tttttttt48g6', account_subtype: 'IRA', account_balance: 70}])
 
       //   });
       // }).catch(err => {
@@ -41,7 +44,7 @@ const App = () => {
       account_id: 'yBDqZZbGZ5HX7GBrw654cpDGKWlP4ztyw43j8',
       account_subtype: 'Checking',
       account_name: 'Plaid TEST',
-      acount_balance: 100
+      account_balance: 100
     })
 
      // fetch('/test/get_user')
