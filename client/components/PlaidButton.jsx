@@ -1,7 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'; 
+import React, { useCallback, useEffect, useState, useContext } from 'react'; 
 import { usePlaidLink } from 'react-plaid-link'; 
+import myContext from '../contexts/GlobalContext.jsx'
+import axios from 'axios'
 
 function PlaidButton() {
+  const {user, accounts, setAccounts} = useContext(myContext); 
 
   const [linkToken, setLinkToken] = useState(''); 
   
@@ -28,13 +31,19 @@ function PlaidButton() {
         accounts: metadata.accounts,
         institution: metadata.institution,
         link_session_id: metadata.link_session_id,
-        user_id: '1',
+        user_id: user.user_id,
       }),
       headers: {
         'Content-Type': 'application/json'
       },
+    }).then(res => {
+      axios.post('/database/getaccounts', {user_id: user.user_id })
+      .then(res => {
+        setAccounts(res.data)
+        console.log("Accounts>>>",res.data)
+      })
     })
-    // send token to server
+    
   }, []);
   
   //Set up config to pass into usePlaidLink

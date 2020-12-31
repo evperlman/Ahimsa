@@ -30,7 +30,7 @@ dbController.updateDatabaseTransactions = (request, response, next) => {
   transaction_date, merchant_name, transaction_description,
   category) VALUES 
   `;
-
+  
   let transactionQuery = transactionInsert;
   response.locals.transactions.forEach((transaction) => {
     let reg = /'/;
@@ -110,7 +110,7 @@ dbController.getItems = (req, res, next) => {
 dbController.saveItem = (req, res, next) => {
   const params = [
     res.locals.item_id,
-    "1",
+    req.body.user_id,
     res.locals.access_token,
     "2020-12-01",
   ];

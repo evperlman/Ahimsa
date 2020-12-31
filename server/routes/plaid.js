@@ -16,8 +16,9 @@ router.post(
   plaidController.getTransactionsFromApi,
   dbController.updateDatabaseAccounts,
   dbController.updateDatabaseTransactions,
+  // dbController.getExistingAccounts,
   (req, res) => {
-    return res.status(200).json("Successfully added new Item to Database");
+    return res.status(200).json(res.locals.servedAccounts);
   }
 );
 

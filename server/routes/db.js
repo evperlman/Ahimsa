@@ -4,17 +4,17 @@ const plaidController = require("../controllers/plaidController.js");
 const router = express.Router();
 
 //post route runs on login, request body contains user_id
-router.post(
-  "/updatedatabase",
-  dbController.getItems,
-  plaidController.getTransactionsFromApi,
-  // dbController.updateDatabaseItems,
-  dbController.updateDatabaseAccounts,
-  dbController.updateDatabaseTransactions,
-  (req, res) => {
-    return res.status(200).json('database updated');
-  }
-);
+// router.post(
+//   "/updatedatabase",
+//   dbController.getItems,
+//   plaidController.getTransactionsFromApi,
+//   // dbController.updateDatabaseItems,
+//   dbController.updateDatabaseAccounts,
+//   dbController.updateDatabaseTransactions,
+//   (req, res) => {
+//     return res.status(200).json('database updated');
+//   }
+// );
 
 router.post("/get_items", dbController.getItems, (req, res) => {
   return res.status(200).json(res.locals.items);

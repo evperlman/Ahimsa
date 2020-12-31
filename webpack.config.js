@@ -11,6 +11,7 @@ module.exports = {
     proxy: {
       '/test' : 'http://localhost:3000',
       '/bcrypt': 'http://localhost:3000',
+      '/database': 'http://localhost:3000',
     },
     historyApiFallback: true, // added this to be able to use Switch in reactRouter
   },

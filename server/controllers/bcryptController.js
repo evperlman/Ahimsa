@@ -41,6 +41,7 @@ bcryptController.createUser = (request, response, next) => {
  * @route   POST /check_pw
  */
 bcryptController.checkPassword = (request, response, next) => {
+  let user
   console.log("getting username");
   const { password, email } = request.body;
   const text = `SELECT * FROM users WHERE email='${email}'`;
@@ -49,10 +50,13 @@ bcryptController.checkPassword = (request, response, next) => {
     if (err) next(err);
     else {
       if(!res.rows[0]) return next();
+      user = res.rows[0]
+
       console.log("Comparing passwords...");
       bcrypt.compare(password, res.rows[0].hash, function (err, res) {
         if (err) return next(err);
-        response.locals.result = res;
+        response.locals.result = user;
+        response.locals.result.hash = '123'
         return next();
       });
     }

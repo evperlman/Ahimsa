@@ -74,8 +74,11 @@ plaidController.getAccessToken = (req, res, next) => {
 //get transactions from api based on item access token and last login
 plaidController.getTransactionsFromApi = (req, res, next) => {
   client
-    .getTransactions(res.locals.access_token, "2020-12-01", "2020-12-30")
+    .getTransactions(res.locals.access_token, "2020-11-01", "2020-12-30")
     .then((data) => {
+      
+      
+      console.log(data)
       res.locals.transactions = data.transactions;
       res.locals.accounts = data.accounts;
       console.log("Got transactions from api")

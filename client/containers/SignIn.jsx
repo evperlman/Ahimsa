@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,14 +13,17 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link, BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
-import PlaidButton from '../components/PlaidButton.jsx'
+import myContext from '../contexts/GlobalContext.jsx'
 
+
+
+// renders copyright information
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <LinkUI color="inherit" href="#">
-        ASANA
+        AHIMSA
       </LinkUI>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -52,16 +55,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState(''); 
   const [successfulLogin, setLogin] = useState(false);
-
+  const {setUser, user} = useContext(myContext); 
   const history = useHistory(); 
   
 
   const clickHandler = (e) => {
-    console.log(username, password);
     e.preventDefault(); 
     console.log('enters click handler')
     fetch('/bcrypt/check_pw', {
@@ -76,6 +78,13 @@ export default function SignIn() {
       }
     }).then(data => data.json()).then(result => {
       if (result){
+        console.log(result)
+
+
+        //ass user to current user hook
+        setUser(result)
+
+
         setLogin(true); 
         history.push('landing')
       } else {
@@ -89,8 +98,6 @@ export default function SignIn() {
       return <Redirect to='/landing'/>; 
     }
   }
-
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -133,6 +140,10 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+         {/* add in onclick functionality to link to SIGNUP.JSX */}
+          <LinkUI href="/signup" variant="body2"> 
+                {"Don't have an account? Sign Up"}
+          </LinkUI>
             <Button
               type="submit"
               fullWidth
@@ -145,14 +156,8 @@ export default function SignIn() {
             </Button>
           <Grid container>
             <Grid item xs>
-              {/* <LinkUI href="#" variant="body2">  ---> stretch feature 
-                Forgot password?
-              </LinkUI> */}
             </Grid>
             <Grid item>
-              {/* <LinkUI href="#" variant="body2"> ---> stretch feature
-                {"Don't have an account? Sign Up"}
-              </LinkUI> */}
             </Grid>
           </Grid>
         </form>

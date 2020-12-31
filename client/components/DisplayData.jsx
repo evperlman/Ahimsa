@@ -10,6 +10,8 @@ import React, { useState, useEffect } from 'react';
 
 // import { Animation } from '@devexpress/dx-react-chart';
 
+// Do visX stuff here 
+
 const DisplayData = () => {
   return (
     <div className = "displayData">
@@ -17,9 +19,6 @@ const DisplayData = () => {
     </div>
   )
 };
-
-
-
 
 
 export default DisplayData;
