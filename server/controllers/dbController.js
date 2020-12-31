@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const database = new Client('');
+const database = new Client(process.env.DB_URL);
 database.connect()
 
 const dbController = {};
