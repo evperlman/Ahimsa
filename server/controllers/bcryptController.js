@@ -55,3 +55,4 @@ bcryptController.storeUserCredentials = (request, response, next) => {
 };
 
 module.exports = bcryptController;
+

@@ -26,7 +26,7 @@ const App = () => (
       <Route path="/landing" component = {Landing} />
     </Switch>
   </Router> 
-  )
+  );
 
 
 
