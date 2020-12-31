@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, setState, useContext } from 'react'; 
 import ReactDOM from 'react-dom';
 import Connect from '../components/NavBar.jsx';
 import AccountInfo from '../components/AccountInfo.jsx';
@@ -6,10 +6,20 @@ import NavBar from '../components/NavBar.jsx';
 import DisplayData from '../components/DisplayData.jsx';
 import Transactions from '../components/Transactions.jsx';
 import '../styles.scss';
+import myContext from '../contexts/GlobalContext.jsx'
+
 
 function Landing () {
-  // const [accounts, setAccounts ] = setState([])
   
+  // const [loggedIn, setLoggedIn] = useState(false); 
+
+  // const test = useContext(myContext);
+  // console.log(test);
+  // test.updateLogin();  
+  // console.log(test); 
+
+  
+
   // Do fetch requests for transactions and accounts here and then pass them down into child components as props
   const accounts = [
     {
@@ -44,24 +54,30 @@ function Landing () {
    },
   ];
 
+  const fakeUser = {
+    user_id: 15, 
+    hash: 'enifen47385h3b4ubf73',
+    first_name: 'evan',
+    last_name: 'perlman', 
+    email: 'eperlman@gmail.com'
+  }
+
   function handleChange(newValue) {
     setValue(newValue);
   }
 
-
-
-
   return (
-    <div className ="landing">
+  <div className ="landing">
+
       <div className = "leftSide">
-        <NavBar accounts={accounts} onChange={handleChange}/> 
+        <NavBar user={fakeUser} accounts={accounts} onChange={handleChange}/> 
       </div>
       <div className = "rightSide">
         <AccountInfo accounts={accounts} />
         <DisplayData />
         <Transactions /> 
       </div>
-    </div>
+  </div>
   )
 }
 
