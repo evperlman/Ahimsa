@@ -64,7 +64,7 @@ const App = () => {
   
 
 
-      axios.post('http://localhost:3000/database/getaccounts', {user_id: user.user_id})
+      axios.post('/database/getaccounts', {user_id: user.user_id})
       .then(res => {
         console.log("ACCCOUNTS IN FRONTEND>>>>>", res)
         setAccounts(res.data)
