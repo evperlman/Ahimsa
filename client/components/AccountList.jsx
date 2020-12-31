@@ -5,6 +5,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import myContext from '../contexts/GlobalContext.jsx'
+import Button from '@material-ui/core/Button';
+import Account from './Account.jsx'
 
 // make accounts conditionally render. currently hard coded. 
 
@@ -29,36 +31,20 @@ function AccountList(props) {
 
   const { accounts } =  useContext(myContext); 
 
-  // useEffect to fetch accountList from Plaid and then update state
-  useEffect(() => {
-    // fetch('/test/get_accounts')
-    // .then(res => res.json())
-    // .then(res => {
-    //   setAccounts(res); 
-    //   listItems = fakeAccounts.map((account, i) => {
-    //     <ListItem button>
-    //       <ListItemText primary={account} />
-    //     </ListItem>
-    //   });
-    // }).catch(err => {
-    //   if (err) return err
-
-    // setAccounts(accounts[0].account_name);
-    }, []);
-  // });
-
   const createList = () => {
     for (let i = 0; i < accounts.length; i++){
       listItems.push(
       <div>
-      <ListItem button key={i}> 
-        <ListItemText primary={accounts[i].account_name} _account_id={accounts[i].account_id} /> 
-      </ListItem>
-        <Divider />
+        <ListItem key={i}> 
+          <Account account_id={accounts[i].account_id} account_name={accounts[i].account_name}/>
+        </ListItem>
+          <Divider />
       </div>
       )
-    }
+    };
   };
+  
+  
 
   createList(); 
 

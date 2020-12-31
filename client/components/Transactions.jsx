@@ -7,7 +7,6 @@ import myContext from '../contexts/GlobalContext.jsx';
 
 
 const columns = [
-  // { field: 'id', headerName: 'ID', width: 70 },
   { field: 'merchant_name', headerName: 'Transaction', width: 150 },
   { field: 'category', headerName: 'Category', width: 130 },
   { field: 'transaction_date', headerName: 'Date', width: 130 },
@@ -18,7 +17,7 @@ const columns = [
 
 export default function Transactions() {
   // const [transactions, setTransactions] = useState([]); 
-  const {transactions, setTransactions} = useContext(myContext); 
+  const { transactions, setTransactions } = useContext(myContext); 
   console.log('transactions: ', transactions); 
   //make the fetch request to get transactions based on the currentAccount state vairable
   useEffect(() => {
@@ -34,22 +33,8 @@ export default function Transactions() {
     //       date_of_transaction: ele.date_of_transaction,
     //       category: ele.category
     //     }
-    //   })))
-
-
-  setTransactions([...transactions, {
-    id: 1,
-    transaction_amount: 450, 
-    transaction_date: '12-22-2020', 
-    merchant_name: 'Mickey Dsss', 
-    category: 'Food', 
-    account_name: 'Plaid Savings'
-  }])  
-  
+    //   }))) 
   }, [])
-
-
-
 
   return (
     <div className="transactions">

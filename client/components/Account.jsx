@@ -1,21 +1,17 @@
 import React, {useState, useEffect} from 'react';
+import Button from '@material-ui/core/Button';
 
 
-export default function Account() {
-
-  const [accounts, setAccounts] = useState([1, 2, 3]);
-  console.log(accounts)
+export default function Account(props) {
   
+  const handleClick = (e) => {
+    e.preventDefault()
+    console.log('account_id', props.account_id); 
+  }
   
   return (
     <div>
-      <ul>
-        {accounts.map(account => {
-          
-          return <li key={account.id}>{account.name}</li>
-          
-        })}
-      </ul>
+        <Button onClick={handleClick}>{props.account_name}</Button> 
     </div>
   )
 }

@@ -35,6 +35,8 @@ const App = () => {
       //   });
       // }).catch(err => {
       //   if (err) return err
+
+
     setCurrentAccount({
       account_id: 'yBDqZZbGZ5HX7GBrw654cpDGKWlP4ztyw43j8',
       account_subtype: 'Checking',
@@ -42,6 +44,11 @@ const App = () => {
       acount_balance: 100
     })
 
+     // fetch('/test/get_user')
+      // .then(res => res.json())
+      // .then(res => {
+      //   
+    // PARSE TRANSACTRIONS OBJECT AND FEED IT TO SET USER
     setTransactions([{
       id: 1,
       transaction_amount: 500, 
@@ -50,7 +57,9 @@ const App = () => {
       category: 'Food', 
       account_name: 'Plaid Checking'
     }])
-    
+    //   });
+      // }).catch(err => {
+      //   if (err) return err
   }, [])
 
 return (
