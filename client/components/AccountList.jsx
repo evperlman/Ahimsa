@@ -24,7 +24,6 @@ function ListItemLink(props) {
 
 function AccountList(props) {
   const classes = useStyles();
-  // let listItems = <div>test</div>;
   let listItems = []; 
 
   const { accounts } =  useContext(myContext); 
@@ -54,7 +53,6 @@ function AccountList(props) {
   return (
     <div className={classes.root}>
       <List component="nav">
-        {/* render all accounts from state */}
         {listItems}        
         </List>
     </div>

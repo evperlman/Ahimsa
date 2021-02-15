@@ -16,9 +16,9 @@ const columns = [
 
 
 export default function Transactions() {
-  // const [transactions, setTransactions] = useState([]); 
-  const { transactions, setTransactions } = useContext(myContext); 
-  console.log('transactions: ', transactions); 
+
+  const { transactions } = useContext(myContext); 
+  
   //make the fetch request to get transactions based on the currentAccount state vairable
   useEffect(() => {
     // fetch('/test/get_transactions')

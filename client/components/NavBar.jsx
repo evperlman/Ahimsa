@@ -18,10 +18,8 @@ const NavBar = (props) => {
               <p>{today}</p>
             </div>
             <div className = "navbar">
-              {/* {once we link the accounts the accounts render here.} */}
               <PlaidButton />
               <AccountList />
-              
             </div>
           </div>      
       );

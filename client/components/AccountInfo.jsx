@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import myContext from '..//contexts/GlobalContext.jsx'
-// make all left adjusted and conditional upon the NavBar Button Selector. 
+
 
 
 function AccountInfo (props) {
