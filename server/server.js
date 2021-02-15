@@ -10,10 +10,17 @@ require('dotenv').config()
  const plaidRouter = require('./routes/plaid.js');
 //bcryptRouter encrypts, stores and checks passwords connected to a separate SQL table on the database. 
 const bcryptRouter = require('./routes/bcrypt.js');
+const { nextSortDirection } = require('@material-ui/data-grid');
 
 // body parsers
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use((req,res) => {
+  // console.log("IN>>>>",req)
+  console.log('hi')
+  res.send("hello")
+})
 
 // route handlers
 app.use('/database', dbRouter);
@@ -28,6 +35,12 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
+
+app.use((req, res) => {
+  console.log("OUT>>>>>", res)
+  return res.send('hi 2')
+})
+
 
 app.listen(3000, () => {
   console.log(`Server listening on port: 3000`);

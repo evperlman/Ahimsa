@@ -70,8 +70,6 @@ const App = () => {
         setAccounts(res.data)
         console.log(accounts)
       })
-     
-        
   }, [user])
 
 return (
