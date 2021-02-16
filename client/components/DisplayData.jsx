@@ -49,18 +49,19 @@ for (let i = 0; i < transactions.length; i++){
   }
   return (
     <div className="dataContainer">
-    <div className ="displayData">
-      <Doughnut 
-      data={data}
-      responsive={true}
-      options={
-        { maintainAspectRatio: false },
-        {legend: {
-          position: 'right'
-        }}
-      }      
-      />
-    </div> 
+      
+      <div className ="displayData">
+        <Doughnut 
+        data={data}
+        responsive={true}
+        options={
+          { maintainAspectRatio: false },
+          {legend: {
+            position: 'right'
+          }}
+        }      
+        />
+      </div> 
   </div>
   )
 };

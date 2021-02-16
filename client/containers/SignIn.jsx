@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link, BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import myContext from '../contexts/GlobalContext.jsx'
 
 

@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
 
 function AccountList(props) {
   const classes = useStyles();
@@ -35,12 +32,12 @@ function AccountList(props) {
 
     for (let i = 0; i < accounts.length; i++){
       listItems.push(
-      <div>
+      // <div>
         <ListItem key={i}> 
           <Account account_id={accounts[i].account_id} account_data={accounts[i]}/>
         </ListItem>
-          <Divider />
-      </div>
+          // <Divider />
+      // </div>
       )
     };
   };
@@ -54,7 +51,7 @@ function AccountList(props) {
     <div className={classes.root}>
       <List component="nav">
         {listItems}        
-        </List>
+      </List>
     </div>
   );
 }
