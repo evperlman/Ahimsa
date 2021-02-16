@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'; 
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 import myContext from '../contexts/GlobalContext.jsx'
+import AccountInfo from './AccountInfo.jsx';
 
 const DisplayData = () => {
 let { transactions, currentAccount } = useContext(myContext);
@@ -49,8 +50,8 @@ for (let i = 0; i < transactions.length; i++){
   }
   return (
     <div className="dataContainer">
-      
-      <div className ="displayData">
+      <AccountInfo />
+      <div className="chart">
         <Doughnut 
         data={data}
         responsive={true}
@@ -59,9 +60,14 @@ for (let i = 0; i < transactions.length; i++){
           {legend: {
             position: 'right'
           }}
-        }      
+        }
+             
         />
       </div> 
+      <div className="chart">
+        <Bar 
+        />
+      </div>
   </div>
   )
 };

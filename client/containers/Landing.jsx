@@ -14,7 +14,6 @@ function Landing () {
         <NavBar /> 
       </div>
       <div className = "rightSide">
-        <AccountInfo />
         <DisplayData />
         <Transactions /> 
       </div>
