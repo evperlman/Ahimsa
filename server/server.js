@@ -16,11 +16,11 @@ const { nextSortDirection } = require('@material-ui/data-grid');
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use((req,res) => {
-  // console.log("IN>>>>",req)
-  console.log('hi')
-  res.send("hello")
-})
+// app.use((req,res) => {
+//   // console.log("IN>>>>",req)
+//   console.log('hi')
+//   res.send("hello")
+// })
 
 // route handlers
 app.use('/database', dbRouter);
@@ -36,10 +36,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-app.use((req, res) => {
-  console.log("OUT>>>>>", res)
-  return res.send('hi 2')
-})
+// app.use((req, res) => {
+//   console.log("OUT>>>>>", res)
+//   return res.send('hi 2')
+// })
 
 
 app.listen(3000, () => {
