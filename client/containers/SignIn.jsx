@@ -8,11 +8,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import LinkUI from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link, BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import myContext from '../contexts/GlobalContext.jsx'
 
 
@@ -68,7 +67,6 @@ export default function SignIn() {
     fetch('/bcrypt/check_pw', {
       method: 'POST',
       body: JSON.stringify({
-        //changed body "username" to "email"
         email: username,
         password: password,
       }),
@@ -77,14 +75,9 @@ export default function SignIn() {
       }
     }).then(data => data.json()).then(result => {
 
-      if (result){
-        //ass user to current user hook
-        
+      if (result){  
         console.log('result', result); 
-        
         setUser(result)
-
-
         setLogin(true); 
         history.push('landing')
       } else {

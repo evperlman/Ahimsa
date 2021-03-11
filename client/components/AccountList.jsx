@@ -18,13 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
 
 function AccountList(props) {
   const classes = useStyles();
-  // let listItems = <div>test</div>;
   let listItems = []; 
 
   const { accounts } =  useContext(myContext); 
@@ -36,12 +32,12 @@ function AccountList(props) {
 
     for (let i = 0; i < accounts.length; i++){
       listItems.push(
-      <div>
+      // <div>
         <ListItem key={i}> 
           <Account account_id={accounts[i].account_id} account_data={accounts[i]}/>
         </ListItem>
-          <Divider />
-      </div>
+          // <Divider />
+      // </div>
       )
     };
   };
@@ -54,9 +50,8 @@ function AccountList(props) {
   return (
     <div className={classes.root}>
       <List component="nav">
-        {/* render all accounts from state */}
         {listItems}        
-        </List>
+      </List>
     </div>
   );
 }

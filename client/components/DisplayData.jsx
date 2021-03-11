@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'; 
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
 import myContext from '../contexts/GlobalContext.jsx'
+import AccountInfo from './AccountInfo.jsx';
 
 const DisplayData = () => {
 let { transactions, currentAccount } = useContext(myContext);
@@ -49,18 +50,29 @@ for (let i = 0; i < transactions.length; i++){
   }
   return (
     <div className="dataContainer">
-    <div className ="displayData">
-      <Doughnut 
-      data={data}
-      responsive={true}
-      options={
-        { maintainAspectRatio: false },
-        {legend: {
-          position: 'right'
-        }}
-      }      
-      />
-    </div> 
+      <AccountInfo />
+      <div className="chart">
+        <Doughnut  
+        style={{width: "100%"}}
+        data={data}
+        responsive={true}
+        options={
+          { maintainAspectRatio: false }
+          // {legend: {
+          //   position: 'right'
+          // }
+        }
+        // }
+             
+        />
+      </div> 
+      <div className="chart">
+        <Bar 
+        style={{width: "100%", height: "100%"}}
+        data={data}
+        responsive={true}
+        />
+      </div>
   </div>
   )
 };

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { usePlaidLink } from 'react-plaid-link'; 
 import myContext from '../contexts/GlobalContext.jsx'
 import axios from 'axios'
+import Button from '@material-ui/core/Button';
 
 function PlaidButton() {
   const {user, accounts, setAccounts} = useContext(myContext); 
@@ -43,7 +44,6 @@ function PlaidButton() {
         console.log("Accounts>>>",res.data)
       })
     })
-    
   }, []);
   
   //Set up config to pass into usePlaidLink
@@ -56,7 +56,16 @@ function PlaidButton() {
 
 
 return (
-  <button className="linkButton" onClick={() => open()} disabled={!ready}>Link Account</button>
+    <div style={{padding: "16px"}}>
+      <Button 
+      className="linkButton" 
+      onClick={() => open()} 
+      disabled={!ready}
+      variant="contained"
+      color="primary"
+      padding={16}
+      >Link Account</Button>
+    </div>
 )
 }
 export default PlaidButton;

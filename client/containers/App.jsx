@@ -16,31 +16,16 @@ const App = () => {
 
   //fetch user, accounts and transactions for the first account and update state here 
   useEffect(() => {
-      // fetch('/test/get_user')
-      // .then(res => res.json())
-      // .then(res => {
-      //   
-    // PARSE USER OBJECT AND FEED IT TO SET USER
-    // setUser({first_name: 'will', last_name: 'perlman', email: 'eperlman@gmail.com'});
-      //   });
-      // }).catch(err => {
-      //   if (err) return err
 
-      // fetch('/test/get_accounts')
-      // .then(res => res.json())
-      // .then(res => {
-      //   
+    // PARSE USER OBJECT AND FEED IT TO SET USER
+
     // PARS ACCOUNTS ARRAY AND FEED IT TO FEED TO ACCOUNTS LIST
     setAccounts([
     {account_name: 'Plaid Checking', account_id: 'enwfn383n48g6', account_subtype: 'Checking',account_balance: 69},
     {account_name: 'Plaid Banking', account_id: 'naotherone', account_subtype: 'Savings', account_balance: 69}, 
     {account_name: 'Plaid big tester', account_id: 'tttttttt48g6', account_subtype: 'IRA', account_balance: 70}])
 
-      //   });
-      // }).catch(err => {
-      //   if (err) return err
-
-
+  
     setCurrentAccount({
       account_id: 'yBDqZZbGZ5HX7GBrw654cpDGKWlP4ztyw43j8',
       account_subtype: 'Checking',
@@ -48,28 +33,74 @@ const App = () => {
       account_balance: 100
     })
 
-     // fetch('/test/get_user')
-      // .then(res => res.json())
-      // .then(res => {
-      //   
     // PARSE TRANSACTRIONS OBJECT AND FEED IT TO SET USER
-    setTransactions([{
+    setTransactions([
+      {
       id: 1,
       transaction_amount: 500, 
       transaction_date: '12-22-2020', 
-      merchant_name: 'KFC', 
+      merchant_name: 'Test', 
       category: 'Food', 
       account_name: 'Plaid Checking'
-    }])
+    },
+    {
+      id: 2,
+      transaction_amount: 150, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'Test', 
+      category: 'Entertainment', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 2,
+      transaction_amount: 70, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'Test', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 3,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 4,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 5,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 5,
+      transaction_amount: 350, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Other', 
+      account_name: 'Plaid Checking'
+    }
+  ])
   
 
 
-      axios.post('/database/getaccounts', {user_id: user.user_id})
-      .then(res => {
-        console.log("ACCCOUNTS IN FRONTEND>>>>>", res)
-        setAccounts(res.data)
-        console.log(accounts)
-      })
+      // axios.post('/database/getaccounts', {user_id: user.user_id})
+      // .then(res => {
+      //   console.log("ACCCOUNTS IN FRONTEND>>>>>", res)
+      //   setAccounts(res.data)
+      //   console.log(accounts)
+      // })
   }, [user])
 
 return (
@@ -77,9 +108,10 @@ return (
       <myContext.Provider value={{user, accounts, transactions, currentAccount, setUser, setAccounts, setTransactions, setCurrentAccount}}>
         <Router> 
           <Switch>
-            <Route path="/" exact component = {SignIn} />
-            <Route path="/signup" exact component = {Signup} />
-            <Route path="/landing" component = {Landing} />
+            {/* <Route path="/" exact component = {SignIn} />
+            <Route path="/signup" exact component = {Signup} /> */}
+            {/* <Route path="/landing" component = {Landing} /> */}
+            <Route path="/" component = {Landing} />
           </Switch>
         </Router> 
       </myContext.Provider>

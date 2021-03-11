@@ -23,10 +23,6 @@ export default function Account(props) {
         setTransactions(result.data);
       }
     );
-
-    // fetch(`datbase/gettransactions/${props.account_data.account_id}`).then(data => data.json()).then(result => {
-    // })
-    // setTransactions({})
   };
 
   return (
