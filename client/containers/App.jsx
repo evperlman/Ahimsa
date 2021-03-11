@@ -34,23 +34,49 @@ const App = () => {
     })
 
     // PARSE TRANSACTRIONS OBJECT AND FEED IT TO SET USER
-    setTransactions([{
+    setTransactions([
+      {
       id: 1,
       transaction_amount: 500, 
       transaction_date: '12-22-2020', 
       merchant_name: 'KFC', 
       category: 'Food', 
       account_name: 'Plaid Checking'
-    }])
+    },
+    {
+      id: 1,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Gas', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 1,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Gas', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 1,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Gas', 
+      account_name: 'Plaid Checking'
+    },
+  ])
   
 
 
-      axios.post('/database/getaccounts', {user_id: user.user_id})
-      .then(res => {
-        console.log("ACCCOUNTS IN FRONTEND>>>>>", res)
-        setAccounts(res.data)
-        console.log(accounts)
-      })
+      // axios.post('/database/getaccounts', {user_id: user.user_id})
+      // .then(res => {
+      //   console.log("ACCCOUNTS IN FRONTEND>>>>>", res)
+      //   setAccounts(res.data)
+      //   console.log(accounts)
+      // })
   }, [user])
 
 return (
@@ -58,9 +84,10 @@ return (
       <myContext.Provider value={{user, accounts, transactions, currentAccount, setUser, setAccounts, setTransactions, setCurrentAccount}}>
         <Router> 
           <Switch>
-            <Route path="/" exact component = {SignIn} />
-            <Route path="/signup" exact component = {Signup} />
-            <Route path="/landing" component = {Landing} />
+            {/* <Route path="/" exact component = {SignIn} />
+            <Route path="/signup" exact component = {Signup} /> */}
+            {/* <Route path="/landing" component = {Landing} /> */}
+            <Route path="/" component = {Landing} />
           </Switch>
         </Router> 
       </myContext.Provider>
