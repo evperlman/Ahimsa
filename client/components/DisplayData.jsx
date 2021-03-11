@@ -66,6 +66,7 @@ for (let i = 0; i < transactions.length; i++){
       </div> 
       <div className="chart">
         <Bar 
+        data={data}
         />
       </div>
   </div>

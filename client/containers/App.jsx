@@ -39,34 +39,58 @@ const App = () => {
       id: 1,
       transaction_amount: 500, 
       transaction_date: '12-22-2020', 
-      merchant_name: 'KFC', 
+      merchant_name: 'Test', 
       category: 'Food', 
       account_name: 'Plaid Checking'
     },
     {
-      id: 1,
-      transaction_amount: 200, 
+      id: 2,
+      transaction_amount: 150, 
       transaction_date: '12-22-2020', 
-      merchant_name: 'KFC', 
-      category: 'Gas', 
+      merchant_name: 'Test', 
+      category: 'Entertainment', 
       account_name: 'Plaid Checking'
     },
     {
-      id: 1,
-      transaction_amount: 200, 
+      id: 2,
+      transaction_amount: 70, 
       transaction_date: '12-22-2020', 
-      merchant_name: 'KFC', 
-      category: 'Gas', 
+      merchant_name: 'Test', 
+      category: 'Travel', 
       account_name: 'Plaid Checking'
     },
     {
-      id: 1,
+      id: 3,
       transaction_amount: 200, 
       transaction_date: '12-22-2020', 
       merchant_name: 'KFC', 
-      category: 'Gas', 
+      category: 'Travel', 
       account_name: 'Plaid Checking'
     },
+    {
+      id: 4,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 5,
+      transaction_amount: 200, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Travel', 
+      account_name: 'Plaid Checking'
+    },
+    {
+      id: 5,
+      transaction_amount: 350, 
+      transaction_date: '12-22-2020', 
+      merchant_name: 'KFC', 
+      category: 'Other', 
+      account_name: 'Plaid Checking'
+    }
   ])
   
 
