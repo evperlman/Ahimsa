@@ -37,7 +37,7 @@ const NavBar = (props) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
       return (
-          <div>
+          <div style={{marginTop: 10}}>
             <Card className={classes.root}>
               <CardContent>
                 <Typography variant="h5" component="h2">
