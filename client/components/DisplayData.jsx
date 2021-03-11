@@ -52,21 +52,25 @@ for (let i = 0; i < transactions.length; i++){
     <div className="dataContainer">
       <AccountInfo />
       <div className="chart">
-        <Doughnut 
+        <Doughnut  
+        style={{width: "100%"}}
         data={data}
         responsive={true}
         options={
-          { maintainAspectRatio: false },
-          {legend: {
-            position: 'right'
-          }}
+          { maintainAspectRatio: false }
+          // {legend: {
+          //   position: 'right'
+          // }
         }
+        // }
              
         />
       </div> 
       <div className="chart">
         <Bar 
+        style={{width: "100%", height: "100%"}}
         data={data}
+        responsive={true}
         />
       </div>
   </div>

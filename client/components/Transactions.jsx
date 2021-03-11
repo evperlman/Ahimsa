@@ -24,7 +24,7 @@ export default function Transactions() {
   return (
     <div className="transactions">
       <h3>Transactions</h3>
-      <div className ="table" style={{ height: 800, width: '90%' }}>
+      <div className ="table" style={{ height: 800, width: '100%' }}>
         <DataGrid rows={transactions.map(transaction => {
           transaction.id = Math.ceil(Math.random()*100)
           return transaction
